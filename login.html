@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title> User Registration</title>
+        <title> User Login</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>        
@@ -14,7 +14,6 @@
                     </div>
                     <div class="col">
                         <input type="text" id="username" name="username" placeholder="username">
-                        <label id="usernameError" class="error"></label>
                     </div>
                 </div>
 
@@ -24,13 +23,14 @@
                     </div>
                     <div class="col">
                         <input type="password" id="password" name="password" placeholder="Password">
-                        <label id="passwordError" class="error"></label>
                     </div>
                 </div>
-
+                <div class="row">                   
+                        <span id="loginError" class="error"></span>                   
+                </div>
                 
                 <div class="row">
-                    <input type="button" id="userLogin" name="userLogin" value="Login" onclick="registration.userRegistration();">
+                    <input type="button" id="login" name="login" value="Login" onclick="userLogin.authenticateUser();">
                 </div>
                 <div class="row text-center">
                     Create a new account? <a href="registration.html"> Registration</a>
