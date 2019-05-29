@@ -65,10 +65,10 @@ var userProfile = (function(){
         }
     }
 
-    getUserList();
-
     return {
+        getLoggedInUserInfo: getLoggedInUserInfo,
         userLogout: userLogout,
+        getUserList: getUserList
     }
 }());
 

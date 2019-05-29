@@ -22,7 +22,7 @@ var registration = (function(){
         reader.readAsDataURL(event.target.files[0]);
     }
 
-    //validation for 
+    //registration form validation
     var validate = function() {
         var userName = document.getElementById('username');
         var password = document.getElementById('password');       
@@ -60,6 +60,7 @@ var registration = (function(){
         return !error;
     }
 
+    //Basic field validation . this method is also reuse while edit profile
     var basicFieldValidation = function() {
         var firstName = document.getElementById('firstname');
         var lastName = document.getElementById('lastname');
@@ -130,6 +131,7 @@ var registration = (function(){
         return error;
     }
 
+    //User Registration .userlist was saved on localstorage.
     var userRegistration = function() {
         var userList = {};
 

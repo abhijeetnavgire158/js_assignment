@@ -5,3 +5,7 @@
 #userProfilePic {
     width: 10%;
 }
+
+.error, .hidden {
+    display: none
+}

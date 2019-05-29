@@ -7,6 +7,7 @@
     <body>      
         <div class="row">
             <div class="col-md-2">
+                <a href="profiles.html">Home page</a>
                 <a href="create-todo.html">Add To-Do</a>
             </div>
             <div class="col-md-6">
@@ -24,26 +25,27 @@
             </div>            
         </div> 
         <div class="row">
-            <div class="col-md-6 offset-md-2">               
+            <div class="col-md-6 offset-md-2">
                 <table class="table">
                     <thead>
-                        <tr>                      
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Gender</th>
-                        <th>Address</th>
-                        <th>Profile Image</th>
+                        <tr>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Categories</th>
+                            <th>Is public</th>
+                            <th>Dalete</th>
                         </tr>
                     </thead>
-                    <tbody id="userListTBody">
-                        
+                    <tbody id="todoList">
+
                     </tbody>
                 </table>
             </div>
         </div> 
     <script src="js/profile.js"></script>
+    <script src="js/todo-list.js"></script>
     <script>
-        userProfile.getUserList();
+        todoList.showToDoList();
     </script>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
