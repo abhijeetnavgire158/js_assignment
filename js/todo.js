@@ -71,18 +71,15 @@ var todo = (function(){
             reminderDate: reminderDate,
             isPublic: isPublic,
             attached: attached,
-            createdDate: new Date(),
             isCompleted: false
         }
     }
 
-    var createToDoList = function() {
-        var todoList = {};
+    var createToDoList = function() {        
         var categories = [];
         var userData = userProfile.getLoggedInUserInfo();
 
         if (validateToDo() === false) {
-            console.log('Validation failed.')
             return false;    
         }
 
@@ -104,20 +101,16 @@ var todo = (function(){
             }
             
             var todoTask = todoItem(todoTitle, todoDate, categories, todoReminder, todoReminderDate, isPublic, todoAttach);
-            console.log(todoTask);
             if (todoIndex === null) {
                 if (typeof userData.todos === 'undefined') {
-                    userData.todos = []; //initialise the todo array
-                    console.log('UNDEFINED CALL');
+                    userData.todos = []; //initialise the todo array                   
                 }
-                userData.todos.push(todoTask);                
-                console.log(userData);
+                userData.todos.push(todoTask);
             } else {
                 userData.todos[todoIndex] = todoTask;
             }
 
             localStorage.setItem(userData.userName, JSON.stringify(userData));
-
             location.href = '../js_assignment/todo-list.html';
         }
     }

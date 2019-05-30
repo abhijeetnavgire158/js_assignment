@@ -6,14 +6,12 @@ var todoList = (function() {
     reload the list (index was changed after delete)
     */
     function deleteTodoItem(index) {
-        console.log(`Delete index : ${index}`);
         userData.todos.splice( parseInt( index ), 1 );
         localStorage.setItem(userData.userName,JSON.stringify(userData));
         showToDoList();
     }
 
     function editTodoItem(index) {
-        console.log(index);
         location.href = `../js_assignment/create-todo.html?todoIndex=${index}`;
     }
 

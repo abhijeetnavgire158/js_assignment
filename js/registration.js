@@ -136,8 +136,6 @@ var registration = (function(){
         var userList = {};
 
         if (validate() === false) {
-            console.log(Error('validation failed'));
-
             return false;
         }
 
@@ -173,7 +171,6 @@ var registration = (function(){
     }
 
     var userUpdateProfile = function() {
-        console.log(basicFieldValidation());
         if (loggedInUser !== null && basicFieldValidation() === false) {
             var updateUserData = JSON.parse(localStorage.getItem(loggedInUser.userName));
             updateUserData.firstName = document.getElementById('firstname').value;

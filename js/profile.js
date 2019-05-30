@@ -13,6 +13,7 @@ var userProfile = (function(){
         } else {
             location.href = '../js_assignment/login.html';
         }
+        
         return userData;
     }
 
@@ -24,11 +25,10 @@ var userProfile = (function(){
     }
 
     var getUserList = function () {
-        console.log(localStorage);
-
         var tbl = document.createElement("table");
         tbl.setAttribute("class", "table");
         var tblBody = document.createElement("tbody");
+
         for(var index = 0; index < localStorage.length; index++) {
             console.log(localStorage.key(index));
             if (localStorage.key(index) !== '') {            
