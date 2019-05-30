@@ -1,0 +1,23 @@
+.heading {
+    text-align: center
+}
+
+#userProfilePic {
+    width: 10%;
+}
+
+.error, .hidden {
+    display: none
+}
+
+.click-button {
+    cursor: pointer;
+}
+
+.completed-task {
+    text-decoration: line-through;
+}
+
+.green-tick {
+    color: #00ff00;
+}
