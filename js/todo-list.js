@@ -138,8 +138,39 @@ var todoList = (function() {
             }
         }
     }
+
+    var sortList = function(column) {        
+        var sortColumn = document.getElementById(column);
+        var order = sortColumn.getAttribute('sort');        
+        sortColumn.setAttribute('sort', (order == 'asc') ? 'desc' : 'asc');
+        userData.todos.sort(function(a, b) {
+            if (column == 'titleColumn') {
+                var titleA=a.title.toLowerCase();
+                var titleB=b.title.toLowerCase();
+                if (order == 'asc') {
+                    if (titleA < titleB) //sort string ascending
+                    return -1 
+                    if (titleA > titleB)
+                        return 1
+                    return 0 //default return value (no sorting)
+                } else if (order == 'desc'){
+                    if (titleA > titleB) //sort string descending
+                    return -1 
+                    if (titleA < titleB)
+                        return 1
+                    return 0 //default return value (no sorting)
+                }
+            } else if (column == 'dateColumn') {
+                return (order == 'asc') ? new Date(a.date)-new Date(b.date) 
+                    : new Date(b.date)-new Date(a.date); 
+            }
+        });
+
+        showToDoList();
+    }
     
     return {
-        showToDoList: showToDoList
+        showToDoList: showToDoList,
+        sortList: sortList
     }
 }());

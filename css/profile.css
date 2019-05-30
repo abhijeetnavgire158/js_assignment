@@ -11,7 +11,7 @@
 }
 
 .click-button {
-    cursor: s;
+    cursor: pointer;
 }
 
 .completed-task {
