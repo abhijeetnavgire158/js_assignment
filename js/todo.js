@@ -119,7 +119,7 @@ var todo = (function(){
         var urlParams = new URLSearchParams(window.location.search);
         var id = urlParams.get('todoIndex');
         var userData = userProfile.getLoggedInUserInfo();
-        var todoData = userData.todos[id];
+        var todoData = (typeof userData.todos !== "undefined") ? userData.todos[id] : undefined;
         
         if (typeof todoData !== "undefined") {
             todoIndex = id;
