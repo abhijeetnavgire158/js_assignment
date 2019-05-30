@@ -23,12 +23,65 @@ var todoList = (function() {
         showToDoList();
     }
 
-    var showToDoList = function() {
+    function dateFilter(todoDate) {
+        var fromDate = Date.parse(document.getElementById('filterFromDate').value);
+        var toDate = Date.parse(document.getElementById('filterToDate').value);
+      
+        if (!isNaN(fromDate) && !isNaN(toDate)) {
+            return (todoDate >= fromDate && todoDate <= toDate);
+        }
+
+        return true;        
+    }
+
+    function categoryFilter(categories) {
+        //category filter
+        var filterCategory = document.getElementById('filterCategory').value;
+        /*
+        (userData.todos[index].category.indexOf(filterCategory) === -1) 
+        this condition true if filter Category not found in Categories Array so we need to skip this todo 
+        */
+        return (filterCategory !== '' && (categories.indexOf(filterCategory) === -1));
+    }
+
+    function taskCompletedFilter (isCompleted, todoDate) {
+        var filterCompleted = document.getElementById('filterCompleted').value;
+        isCompleted = isCompleted.toString();        
+        
+        //Below condition for pending task due to date
+        if (filterCompleted === 'false') {
+            todoDate = Date.parse(todoDate);            
+
+            // true result will skip task from the todo list
+            return !(todoDate < new Date() && isCompleted == 'false');
+        }
+
+        // true result will skip task from the todo list
+        return (filterCompleted !== '' && isCompleted != filterCompleted);
+    }
+
+    var showToDoList = function(isApplyFilter = false) {
         if (typeof userData.todos !== 'undefined') {
             document.getElementById('todoList').innerHTML = '';        
-            for(let index = 0; index < userData.todos.length; index++) {
-                console.log(userData.todos[index].title);
-                
+            for(let index = 0; index < userData.todos.length; index++) {                
+                if (isApplyFilter) {
+                    //Date Filter
+                    if (!dateFilter(Date.parse(userData.todos[index].date))) {
+                        continue;
+                    }
+
+                    //category Filter
+                    if (categoryFilter(userData.todos[index].category)) {
+                        continue;
+                    }
+
+                    //Task completed filter
+                    if (taskCompletedFilter(userData.todos[index].isCompleted, 
+                        userData.todos[index].date)) {
+                        continue;
+                    }
+                }
+
                 let tr = document.createElement('tr');
                 if (userData.todos[index].isCompleted) {
                     tr.setAttribute('class', 'completed-task');
@@ -43,7 +96,8 @@ var todoList = (function() {
 
                 let markAsDoneIcon = document.createElement("span");
                 
-                markAsDoneIcon.innerHTML = `<i class="fa fa-check-circle ${(userData.todos[index].isCompleted) ? 'green-tick' : ''}" aria-hidden="true"></i>`;
+                markAsDoneIcon.innerHTML = `<i class="fa fa-check-circle
+                 ${(userData.todos[index].isCompleted) ? 'green-tick' : ''}" aria-hidden="true"></i>`;
                 markAsDoneIcon.onclick = function() { 
                     //here we need to do opposite action so that we are pass the completed parameter as !
                     markAsCompleted(index, !userData.todos[index].isCompleted); 
@@ -60,7 +114,7 @@ var todoList = (function() {
                     editTodoItem(index);
                 }
                 let deleteToDoIcon = document.createElement('span');
-                deleteToDoIcon.innerHTML = '| <i class="fa fa-trash click-button" aria-hidden="true"></i>';
+                deleteToDoIcon.innerHTML = `| <i class="fa fa-trash click-button" aria-hidden="true"></i>`;
                 deleteToDoIcon.onclick = function() { 
                     deleteTodoItem(index); 
                 };
@@ -86,7 +140,6 @@ var todoList = (function() {
             }
         }
     }
-
     
     return {
         showToDoList: showToDoList

@@ -34,17 +34,45 @@
                             Filter:
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        From : <input type="date" id="filterFromDate" name="filterFromDate">
+                <div class="row form-group">
+                    <div class="col-md-2">
+                        From :
                     </div>
-                    <div class="col-md-6">
-                        To : <input type="date" id="filterToDate" name="filterToDate">
+                    <div class="col-md-4">
+                         <input type="date" id="filterFromDate" name="filterFromDate">
+                    </div>
+                    <div class="col-md-2">
+                        To :
+                    </div>
+                    <div class="col-md-4">
+                        <input type="date" id="filterToDate" name="filterToDate">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2">
+                        Categories                      
+                    </div>
+                    <div class="col-md-4">                       
+                        <select id="filterCategory" name="filterCategory" class="form-control">
+                            <option value=""> Select Category </option>
+                            <option value="Done"> Done </option>
+                            <option value="Pending"> Pending </option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        Competed Tasks                      
+                    </div>
+                    <div class="col-md-4">
+                        <select id="filterCompleted" name="filterCompleted" class="form-control">
+                                <option value=""> Select </option>
+                                <option value="true"> Completed Tasks </option>
+                                <option value="false"> Pending Tasks </option>
+                            </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <input id="btnFilter" name="btnFilter" type="button" class="btn btn-primary" value="Apply Filter">
+                        <input id="btnFilter" name="btnFilter" type="button" class="btn btn-primary" value="Apply Filter" onclick="todoList.showToDoList(true)">
                     </div>
                 </div>
             </div>
