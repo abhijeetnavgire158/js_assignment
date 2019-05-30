@@ -1,4 +1,5 @@
 var todo = (function(){
+    var todoIndex = null;
 
     var previewFile = function(event) {        
         var reader = new FileReader();
@@ -70,7 +71,8 @@ var todo = (function(){
             reminderDate: reminderDate,
             isPublic: isPublic,
             attached: attached,
-            createdDate: new Date()
+            createdDate: new Date(),
+            isCompleted: false
         }
     }
 
@@ -92,8 +94,7 @@ var todo = (function(){
             var doneCategory = document.getElementById('doneCategory').checked;
             var pendingCategory = document.getElementById('pendingCategory').checked;
             var isPublic = document.getElementById('todoIsPublic').checked;
-            var todoAttach = document.getElementById('previewFile').src;
-            console.log(todoAttach);
+            var todoAttach = document.getElementById('previewFile').src;           
 
             if (doneCategory) {
                 categories.push('Done');
@@ -102,20 +103,51 @@ var todo = (function(){
                 categories.push('Pending');
             }
             
-            var newToDo = todoItem(todoTitle, todoDate, categories, todoReminder, todoReminderDate, isPublic, todoAttach);
-            console.log(newToDo);
-            if (typeof userData.todo === 'undefined') {
-                userData.todo = []; //initialise the todo array
-                console.log('UNDEFINED CALL');
+            var todoTask = todoItem(todoTitle, todoDate, categories, todoReminder, todoReminderDate, isPublic, todoAttach);
+            console.log(todoTask);
+            if (todoIndex === null) {
+                if (typeof userData.todos === 'undefined') {
+                    userData.todos = []; //initialise the todo array
+                    console.log('UNDEFINED CALL');
+                }
+                userData.todos.push(todoTask);                
+                console.log(userData);
+            } else {
+                userData.todos[todoIndex] = todoTask;
             }
-            userData.todo.push(newToDo);
+
             localStorage.setItem(userData.userName, JSON.stringify(userData));
-            console.log(userData);
 
             location.href = '../js_assignment/todo-list.html';
         }
-
     }
+
+    var showData = function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var id = urlParams.get('todoIndex');
+        var userData = userProfile.getLoggedInUserInfo();
+        var todoData = userData.todos[id];
+        
+        if (typeof todoData !== "undefined") {
+            todoIndex = id;
+            console.log(todoData);
+            console.log(todoData.isReminder);
+            document.getElementById('todoTitle').value = todoData.title;
+            document.getElementById('todoDate').value = todoData.date; 
+            document.getElementById('todoReminder').checked = todoData.isReminder; 
+               
+            document.getElementById('todoReminderDate').value = todoData.reminderDate;
+            document.getElementById('doneCategory').checked = (todoData.category.indexOf('Done') !== -1);
+            document.getElementById('pendingCategory').checked = (todoData.category.indexOf('Pending') !== -1);
+            document.getElementById('todoIsPublic').checked = todoData.isPublic;
+            document.getElementById('previewFile').src = todoData.attached;
+            //document.getElementById('previewFile').style.display = 'block';
+
+            isReminder(); //if is reminder true then we need to enable reminder-date in edit mode.
+
+        }
+    }
+    showData();
 
     return {
         isReminder: isReminder,

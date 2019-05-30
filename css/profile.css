@@ -9,3 +9,15 @@
 .error, .hidden {
     display: none
 }
+
+.click-button {
+    cursor: s;
+}
+
+.completed-task {
+    text-decoration: line-through;
+}
+
+.green-tick {
+    color: #00ff00;
+}
