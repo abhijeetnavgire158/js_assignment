@@ -109,7 +109,7 @@ var todoList = (function() {
                 let editTodoIcon = document.createElement('span');
                 editTodoIcon.innerHTML = '<i class="far fa-edit click-button"></i>';
                 editTodoIcon.onclick = function() {
-                    editTodoItem(index);
+                    editTodoItem(userData.todos[index].id);
                 }
                 let deleteToDoIcon = document.createElement('span');
                 deleteToDoIcon.innerHTML = `| <i class="fa fa-trash click-button" aria-hidden="true"></i>`;

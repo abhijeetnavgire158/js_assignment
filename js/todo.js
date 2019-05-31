@@ -14,7 +14,7 @@ var todo = (function(){
         document.getElementById('todoReminderDate').disabled = true;
         if (document.getElementById('todoReminder').checked) {            
             document.getElementById('todoReminderDate').disabled = false;
-        }        
+        }
     }
 
     var validateToDo = function() {
@@ -64,6 +64,7 @@ var todo = (function(){
 
     var todoItem = (title, date, category, isReminder, reminderDate, isPublic, attached) => {
         return {
+            id: Date.now().toString(36),
             title: title,
             date: date,
             category: category,
@@ -75,11 +76,13 @@ var todo = (function(){
         }
     }
 
-    var createToDoList = function() {        
+    var createToDoList = function() {
+        document.getElementById('btnCreateToDO').disabled = true;
         var categories = [];
         var userData = userProfile.getLoggedInUserInfo();
 
         if (validateToDo() === false) {
+            document.getElementById('btnCreateToDO').disabled = false;
             return false;    
         }
 
@@ -101,7 +104,8 @@ var todo = (function(){
             }
             
             var todoTask = todoItem(todoTitle, todoDate, categories, todoReminder, todoReminderDate, isPublic, todoAttach);
-            if (todoIndex === null) {
+            
+            if (todoIndex === null || todoIndex == -1) {
                 if (typeof userData.todos === 'undefined') {
                     userData.todos = []; //initialise the todo array                   
                 }
@@ -115,16 +119,23 @@ var todo = (function(){
         }
     }
 
+    var getIndexFromID = function(data, todoId) {
+        return data.findIndex(function(todosItem) {
+            return (todosItem.id === todoId)
+        });
+    }
+
     var showData = function() {
         var urlParams = new URLSearchParams(window.location.search);
         var id = urlParams.get('todoIndex');
         var userData = userProfile.getLoggedInUserInfo();
-        var todoData = (typeof userData.todos !== "undefined") ? userData.todos[id] : undefined;
+        var todoData;
+        if (typeof userData.todos !== "undefined") {
+            todoIndex = getIndexFromID(userData.todos, id);
+            todoData = userData.todos[todoIndex];
+        }
         
         if (typeof todoData !== "undefined") {
-            todoIndex = id;
-            console.log(todoData);
-            console.log(todoData.isReminder);
             document.getElementById('todoTitle').value = todoData.title;
             document.getElementById('todoDate').value = todoData.date; 
             document.getElementById('todoReminder').checked = todoData.isReminder; 
@@ -137,7 +148,6 @@ var todo = (function(){
             //document.getElementById('previewFile').style.display = 'block';
 
             isReminder(); //if is reminder true then we need to enable reminder-date in edit mode.
-
         }
     }
     showData();

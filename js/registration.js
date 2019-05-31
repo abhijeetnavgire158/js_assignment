@@ -133,9 +133,11 @@ var registration = (function(){
 
     //User Registration .userlist was saved on localstorage.
     var userRegistration = function() {
+        document.getElementById('btnUserRegistration').disabled = true;
         var userList = {};
 
         if (validate() === false) {
+            document.getElementById('btnUserRegistration').disabled = false;
             return false;
         }
 
