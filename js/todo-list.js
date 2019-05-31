@@ -60,8 +60,8 @@ var todoList = (function() {
 
     var showToDoList = function(isApplyFilter = false) {
         if (typeof userData.todos !== 'undefined') {
-            document.getElementById('todoList').innerHTML = '';        
-            for(let index = 0; index < userData.todos.length; index++) {                
+            document.getElementById('todoList').innerHTML = '';
+            for(let index = 0; index < userData.todos.length; index++) {
                 if (isApplyFilter) {
                     //Date Filter
                     if (!dateFilter(Date.parse(userData.todos[index].date))) {
@@ -74,7 +74,7 @@ var todoList = (function() {
                     }
 
                     //Task completed filter
-                    if (taskCompletedFilter(userData.todos[index].isCompleted, 
+                    if (taskCompletedFilter(userData.todos[index].isCompleted,
                         userData.todos[index].date)) {
                         continue;
                     }
